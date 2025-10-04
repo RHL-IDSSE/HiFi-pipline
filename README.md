@@ -9,4 +9,13 @@ hifiasm_meta -o ${output} -t 40 ${fq} && awk '/^S/{print ">"$2;print $3}' *.p_ct
 ```
 metaMDBG v.0.3.0 <br>
 ```shell
-metaMDBG asm metaMDBG_output ${fq} -t 80
+metaMDBG asm ${output} ${fq} -t 80
+```
+metaFlye v.2.9.2 <br>
+```shell
+flye --pacbio-hifi ${fq} --meta --out-dir ${output} -t 80
+```
+HiCanu v.2.2 <br>
+```shell
+canu -p ${profile} -d ${output} genomeSize=5m -pacbio-hifi ${fq} maxInputCoverage=10000 corOutCoverage=10000 corMhapSensitivity=high corMinCoverage=0 -maxThreads=80 batMemory=1400g
+```
