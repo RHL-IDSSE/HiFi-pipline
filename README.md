@@ -5,4 +5,7 @@ We first validated the pipeline using the public ZymoBIOMICS D6331 mock dataset,
 ## Assembly
 hifiasm_meta v.0.3.1 <br>
 ```shell
-hifiasm_meta -o $output -t 40 ${fq} && awk '/^S/{print ">"$2;print $3}' *.p_ctg.gfa > ${yourfilename}.p_ctg.fa
+hifiasm_meta -o ${output} -t 40 ${fq} && awk '/^S/{print ">"$2;print $3}' *.p_ctg.gfa > ${yourfilename}.p_ctg.fa
+metaMDBG v.0.3.0 <br>
+```shell
+metaMDBG asm metaMDBG_output ${fq} -t 80
