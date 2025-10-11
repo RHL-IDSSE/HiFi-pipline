@@ -22,4 +22,43 @@ canu -p ${profile} -d ${output} genomeSize=5m -pacbio-hifi ${fq} maxInputCoverag
 ## Selection of cMAG and sMAG
 ### Split circular & linear contigs
 The relevant scripts in the Python folder differentiate between circular and linear contigs.
-### 
+### Length, completeness, and contamination filtering
+For the circular and linear contigs obtained above, we filtered those longer than 100 kb, then evaluated their completeness and contamination using CheckM2 v1.0.1. Contigs with ≥90% completeness and ≤5% contamination were selected for subsequent analyses. <br>
+```shell
+checkm2 predict --threads 24 --input ${fa} --output-directory ${output_folder} --force -x fasta
+```
+### Taxonomic annotation
+We performed taxonomic annotation of the high-quality MAGs (HQ-MAGs) obtained above using GTDB-Tk v.2.4.1. <br>
+```shell
+gtdbtk classify_wf --genome_dir ${input_folder}  --out_dir ${output_folder} --cpus 30 --force -x fasta --skip_ani_screen
+```
+### Filtering based on rRNA
+We used Barrnap v.0.9 to predict 5S, 16S, and 23S rRNAs, and retained only MAGs containing all three. <br>
+```shell
+barrnap --threads 5 ${fa} > ${output_folder}/${fa_name}.gff
+```
+### Filtering based on the number of tRNA types
+We used tRNAscan-SE v.2.0.12 to predict tRNAs, where circular contigs containing at least 20 types of tRNAs were classified as cMAGs, and those containing at least 18 types of tRNAs were classified as sMAGs. <br>
+```shell
+#for archaea
+tRNAscan-SE -A -o ${fa_name}.txt ${fa} --thread 12
+#for bacteria
+tRNAscan-SE -B -o ${fa_name}.txt ${fa} --thread 12
+```
+### Strain-level genome dereplication
+We performed Mash clustering and applied the following criteria for strain-level genome dereplication: amino acid identity (AAI) > 99.5%, average nucleotide identity (ANI) > 99%, and alignment fraction (AF) > 95%. The related scripts are stored in the 'Strain_level_dereplication' folder.
+## Community-level HGT prediction
+We used MetaCHIP v.1.10.13 to predict community-level HGT events at the genus level. <br>
+```shell
+MetaCHIP PI -p ${profile} -r pcofg -t 24 -o ${output_folder} -i ${input_folder} -x fasta -taxon $taxa
+MetaCHIP BP -p ${profile} -r pcofg -t 24 -o ${output_folder}
+```
+## Pangenome construction
+We used the Panaroo v.1.5.0 to construct a species-level pangenome for 19 strains of the same ANME-1 species. <br>
+```shell
+panaroo -i ${input_folder}/*.gff -o ${output_folder}  --clean-mode strict --remove-invalid-genes  -a core  -t 20
+```
+## Viral screening workflow
+Viral sequences were retrieved from the HiFi- and Illumina-assembled contigs using the approach from the IMG/VR v4 database. The related scripts are stored in the 'virus' folder. <br>
+## Virus–host association analysis
+We performed high-confidence virus–host association analysis based on CRISPR-Cas systems, with the relevant code stored in the virus-host folder.
