@@ -61,7 +61,7 @@ panaroo -i ${input_folder}/*.gff -o ${output_folder}  --clean-mode strict --remo
 ## Virus identification
 Viral sequences were retrieved from the HiFi- and Illumina-assembled contigs using the approach from the IMG/VR v4 database.  <br>
 ```shell
-genomad end-to-end --cleanup ${assemble_file} ${output} ${genomad_db_path} --threads 24 
+genomad end-to-end --cleanup ${assemble_file} ${output} ${genomad_db_path} --threads 24 <br>
 checkv end_to_end ${potential_virus} ${checkv_output} -t 36
 makeblastdb -in ${checkv_virus} -dbtype nucl -title ${your_title}  -out ${output_folder}/${your_name}
 blastn -query ${checkv_virus} -db ${makeblastdb_output} -out blastn.xls -outfmt '6 std qlen slen'  -num_threads 24 -evalue 1e-5 -max_target_seqs 20000
@@ -69,5 +69,6 @@ anicalc.py -i blastn.xls -o 04.ani
 aniclust.py --fna ${checkv_virus} --ani 04.ani --out 04.cluster
 cut -f 1 04.cluster > 04.virus_repersent
 seqkit grep -f 04.virus_repersent ${checkv_virus} -o 05.virus_repersent.fasta
+```
 ## Virus–host association analysis
 We performed high-confidence virus–host association analysis based on CRISPR-Cas systems, with the relevant code stored in the **virus-host** folder.
