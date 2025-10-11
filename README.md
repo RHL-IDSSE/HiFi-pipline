@@ -46,7 +46,7 @@ tRNAscan-SE -A -o ${fa_name}.txt ${fa} --thread 12
 tRNAscan-SE -B -o ${fa_name}.txt ${fa} --thread 12
 ```
 ### Strain-level genome dereplication
-We performed Mash clustering and applied the following criteria for strain-level genome dereplication: amino acid identity (AAI) > 99.5%, average nucleotide identity (ANI) > 99%, and alignment fraction (AF) > 95%. The related scripts are stored in the 'Strain_level_dereplication' folder.
+We performed Mash clustering and applied the following criteria for strain-level genome dereplication: amino acid identity (AAI) > 99.5%, average nucleotide identity (ANI) > 99%, and alignment fraction (AF) > 95%. The related scripts are stored in the **Strain_level_dereplication** folder.
 ## Community-level HGT prediction
 We used MetaCHIP v.1.10.13 to predict community-level HGT events at the genus level. <br>
 ```shell
@@ -59,6 +59,6 @@ We used the Panaroo v.1.5.0 to construct a species-level pangenome for 19 strain
 panaroo -i ${input_folder}/*.gff -o ${output_folder}  --clean-mode strict --remove-invalid-genes  -a core  -t 20
 ```
 ## Viral screening workflow
-Viral sequences were retrieved from the HiFi- and Illumina-assembled contigs using the approach from the IMG/VR v4 database. The related scripts are stored in the 'virus' folder. <br>
+Viral sequences were retrieved from the HiFi- and Illumina-assembled contigs using the approach from the IMG/VR v4 database. The related scripts are stored in the **virus** folder. <br>
 ## Virus–host association analysis
-We performed high-confidence virus–host association analysis based on CRISPR-Cas systems, with the relevant code stored in the virus-host folder.
+We performed high-confidence virus–host association analysis based on CRISPR-Cas systems, with the relevant code stored in the **virus-host** folder.
