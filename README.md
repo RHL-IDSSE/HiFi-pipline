@@ -19,7 +19,7 @@ HiCanu v.2.2 <br>
 ```shell
 canu -p ${profile} -d ${output} genomeSize=5m -pacbio-hifi ${fq} maxInputCoverage=10000 corOutCoverage=10000 corMhapSensitivity=high corMinCoverage=0 -maxThreads=80 batMemory=1400g
 ```
-## Selection of cMAG and sMAG
+## Identification of cMAG and sMAG
 ### Split circular & linear contigs
 The relevant scripts in the **Split_circular&linear_contigs** folder differentiate between circular and linear contigs.
 ### Length, completeness, and contamination filtering
