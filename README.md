@@ -75,3 +75,9 @@ We performed high-confidence virus–host association analysis based on CRISPR-C
 ```shell
 cctyper ${strain} -t 20 ${output_name} --prodigal meta
 ```
+## Virus comparison analyses
+```shell
+prodigal -i ${virus} -o virus.gff -a virus.faa -d virus.fna -f gff -p single -m
+vcontact2_gene2genome -p virus.faa -o gene2genome_new.csv -s Prodigal-FAA
+vcontact2 -r virus.faa --pcs-mode MCL --vcs-mode ClusterONE  -o vcontact2_output -t 48  --proteins-fp gene2genome_new.csv
+```
