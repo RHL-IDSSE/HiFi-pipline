@@ -21,7 +21,7 @@ canu -p ${profile} -d ${output} genomeSize=5m -pacbio-hifi ${fq} maxInputCoverag
 ```
 ## Selection of cMAG and sMAG
 ### Split circular & linear contigs
-The relevant scripts in the Python folder differentiate between circular and linear contigs.
+The relevant scripts in the **Split_circular&linear_contigs** folder differentiate between circular and linear contigs.
 ### Length, completeness, and contamination filtering
 For the circular and linear contigs obtained above, we filtered those longer than 100 kb, then evaluated their completeness and contamination using CheckM2 v1.0.1. Contigs with ≥90% completeness and ≤5% contamination were selected for subsequent analyses. <br>
 ```shell
